@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { moviesAPI, favoritesAPI } from './services/api';
 import MovieCard from './MovieCard';
 
 const FavoritesList = ({ onFavoriteToggle }) => {
