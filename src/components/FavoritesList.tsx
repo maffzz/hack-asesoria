@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { moviesAPI, favoritesAPI } from './services/api';
+import { favoritesAPI, moviesAPI } from '../services/api';
+import { Movie } from '../types';
 import MovieCard from './MovieCard';
 
-const FavoritesList = ({ onFavoriteToggle }) => {
-  const [favorites, setFavorites] = useState([]);
-  const [favoriteMovies, setFavoriteMovies] = useState([]);
+interface FavoritesListProps {
+  onFavoriteToggle: (movieId: number) => void;
+}
+
+const FavoritesList = ({ onFavoriteToggle }: FavoritesListProps) => {
+  const [favorites, setFavorites] = useState<number[]>([]); 
+  const [favoriteMovies, setFavoriteMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -31,7 +36,7 @@ const FavoritesList = ({ onFavoriteToggle }) => {
 
   return (
     <div>
-      <h2>Películas Favoritas</h2>
+      <h2>Mis Favoritas</h2>
       {loading && <p>Loading...</p>}
       {error && <p className="error">{error}</p>}
 
@@ -44,12 +49,10 @@ const FavoritesList = ({ onFavoriteToggle }) => {
 
       <div className="movies-grid">
         {favoriteMovies.map((movie) => (
-          <MovieCard
-            key={movie.id}
-            movie={movie}
-            onFavoriteToggle={onFavoriteToggle}
-            isFavorite={favorites.includes(movie.id)}
-          />
+          <div key={movie.id} className="movie-card">
+            <MovieCard movie={movie} />
+            <button onClick={() => onFavoriteToggle(movie.id)}>Eliminar de Favoritos</button>
+          </div>
         ))}
       </div>
     </div>
