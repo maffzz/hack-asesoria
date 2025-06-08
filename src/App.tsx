@@ -7,7 +7,7 @@ function App() {
 
   const handleLogin = (data) => {
     setUser(data.user);
-    localStorage.setItem("token", data.token); // opcional
+    localStorage.setItem("token", data.token);
   };
 
   const handleLogout = () => {
@@ -25,7 +25,6 @@ function App() {
       ) : (
         <>
           <Login onLogin={handleLogin} />
-          {/* <Register onRegister={...} /> puedes agregarlo aquí también */}
         </>
       )}
     </div>
